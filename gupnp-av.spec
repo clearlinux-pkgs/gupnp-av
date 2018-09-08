@@ -4,22 +4,23 @@
 #
 Name     : gupnp-av
 Version  : 0.12.10
-Release  : 1
-URL      : https://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.10.tar.xz
-Source0  : https://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.10.tar.xz
+Release  : 2
+URL      : http://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.10.tar.xz
+Source0  : http://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.10.tar.xz
 Summary  : GObject-based AV specific UPnP library
 Group    : Development/Tools
 License  : LGPL-2.0
-Requires: gupnp-av-lib
-Requires: gupnp-av-doc
 Requires: gupnp-av-data
+Requires: gupnp-av-lib
+Requires: gupnp-av-license
+BuildRequires : buildreq-gnome
 BuildRequires : docbook-xml
-BuildRequires : gobject-introspection-dev
 BuildRequires : gtk-doc
 BuildRequires : gtk-doc-dev
 BuildRequires : libxslt-bin
 BuildRequires : pkgconfig(gobject-2.0)
 BuildRequires : pkgconfig(libxml-2.0)
+BuildRequires : vala
 
 %description
 GUPnP A/V
@@ -59,9 +60,18 @@ doc components for the gupnp-av package.
 Summary: lib components for the gupnp-av package.
 Group: Libraries
 Requires: gupnp-av-data
+Requires: gupnp-av-license
 
 %description lib
 lib components for the gupnp-av package.
+
+
+%package license
+Summary: license components for the gupnp-av package.
+Group: Default
+
+%description license
+license components for the gupnp-av package.
 
 
 %prep
@@ -72,7 +82,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1519072707
+export SOURCE_DATE_EPOCH=1536446810
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -84,8 +94,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1519072707
+export SOURCE_DATE_EPOCH=1536446810
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/gupnp-av
+cp COPYING %{buildroot}/usr/share/doc/gupnp-av/COPYING
 %make_install
 
 %files
@@ -100,6 +112,8 @@ rm -rf %{buildroot}
 /usr/share/gupnp-av/simpledc20021212.xsd
 /usr/share/gupnp-av/upnp.xsd
 /usr/share/gupnp-av/xml.xsd
+/usr/share/vala/vapi/gupnp-av-1.0.deps
+/usr/share/vala/vapi/gupnp-av-1.0.vapi
 
 %files dev
 %defattr(-,root,root,-)
@@ -127,7 +141,7 @@ rm -rf %{buildroot}
 /usr/lib64/pkgconfig/gupnp-av-1.0.pc
 
 %files doc
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/gtk-doc/html/gupnp-av/GUPnPCDSLastChangeParser.html
 /usr/share/gtk-doc/html/gupnp-av/GUPnPDIDLLiteContainer.html
 /usr/share/gtk-doc/html/gupnp-av/GUPnPDIDLLiteContributor.html
@@ -163,3 +177,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 /usr/lib64/libgupnp-av-1.0.so.2
 /usr/lib64/libgupnp-av-1.0.so.2.0.0
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/gupnp-av/COPYING
