@@ -4,7 +4,7 @@
 #
 Name     : gupnp-av
 Version  : 0.12.10
-Release  : 4
+Release  : 5
 URL      : http://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.10.tar.xz
 Source0  : http://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.10.tar.xz
 Summary  : GObject-based AV specific UPnP library
