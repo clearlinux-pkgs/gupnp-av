@@ -4,7 +4,7 @@
 #
 Name     : gupnp-av
 Version  : 0.12.11
-Release  : 10
+Release  : 11
 URL      : https://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.11.tar.xz
 Source0  : https://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.11.tar.xz
 Summary  : Library to ease handling and implementation of UPnP A/V profiles
