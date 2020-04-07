@@ -4,10 +4,10 @@
 #
 Name     : gupnp-av
 Version  : 0.12.11
-Release  : 11
+Release  : 12
 URL      : https://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.11.tar.xz
 Source0  : https://download.gnome.org/sources/gupnp-av/0.12/gupnp-av-0.12.11.tar.xz
-Summary  : Library to ease handling and implementation of UPnP A/V profiles
+Summary  : GObject-based AV specific UPnP library
 Group    : Development/Tools
 License  : LGPL-2.0
 Requires: gupnp-av-data = %{version}-%{release}
@@ -20,7 +20,6 @@ BuildRequires : gtk-doc-dev
 BuildRequires : libxslt-bin
 BuildRequires : pkgconfig(gobject-2.0)
 BuildRequires : pkgconfig(libxml-2.0)
-BuildRequires : vala
 
 %description
 GUPnP A/V
@@ -77,35 +76,37 @@ license components for the gupnp-av package.
 
 %prep
 %setup -q -n gupnp-av-0.12.11
+cd %{_builddir}/gupnp-av-0.12.11
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1557013679
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1586237534
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1557013679
+export SOURCE_DATE_EPOCH=1586237534
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gupnp-av
-cp COPYING %{buildroot}/usr/share/package-licenses/gupnp-av/COPYING
+cp %{_builddir}/gupnp-av-0.12.11/COPYING %{buildroot}/usr/share/package-licenses/gupnp-av/bf50bac24e7ec325dbb09c6b6c4dcc88a7d79e8f
 %make_install
 
 %files
@@ -188,4 +189,4 @@ cp COPYING %{buildroot}/usr/share/package-licenses/gupnp-av/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/gupnp-av/COPYING
+/usr/share/package-licenses/gupnp-av/bf50bac24e7ec325dbb09c6b6c4dcc88a7d79e8f
